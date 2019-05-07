@@ -1,0 +1,289 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "accountName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "identity": {
+                    "description": "The Key Vault encryption identity, if any.",
+                    "properties": {
+                        "principalId": {
+                            "description": "The principal identifier associated with the encryption.",
+                            "format": "uuid",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "tenantId": {
+                            "description": "The tenant identifier associated with the encryption.",
+                            "format": "uuid",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "The type of encryption being used. Currently the only supported type is 'SystemAssigned'.",
+                            "enum": [
+                                "SystemAssigned"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "EncryptionIdentityType"
+                            }
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ],
+                    "type": "object"
+                },
+                "location": {
+                    "description": "The resource location.",
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "The Data Lake Store account properties to use for creating.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "defaultGroup": {
+                            "description": "The default owner group for all new folders and files created in the Data Lake Store account.",
+                            "type": "string"
+                        },
+                        "encryptionConfig": {
+                            "description": "The Key Vault encryption configuration.",
+                            "properties": {
+                                "keyVaultMetaInfo": {
+                                    "description": "The Key Vault information for connecting to user managed encryption keys.",
+                                    "properties": {
+                                        "encryptionKeyName": {
+                                            "description": "The name of the user managed encryption key.",
+                                            "type": "string"
+                                        },
+                                        "encryptionKeyVersion": {
+                                            "description": "The version of the user managed encryption key.",
+                                            "type": "string"
+                                        },
+                                        "keyVaultResourceId": {
+                                            "description": "The resource identifier for the user managed Key Vault being used to encrypt.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "keyVaultResourceId",
+                                        "encryptionKeyName",
+                                        "encryptionKeyVersion"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": {
+                                    "description": "The type of encryption configuration being used. Currently the only supported types are 'UserManaged' and 'ServiceManaged'.",
+                                    "enum": [
+                                        "UserManaged",
+                                        "ServiceManaged"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": false,
+                                        "name": "EncryptionConfigType"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "encryptionState": {
+                            "description": "The current state of encryption for this Data Lake Store account.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "EncryptionState"
+                            }
+                        },
+                        "firewallAllowAzureIps": {
+                            "description": "The current state of allowing or disallowing IPs originating within Azure through the firewall. If the firewall is disabled, this is not enforced.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "FirewallAllowAzureIpsState"
+                            }
+                        },
+                        "firewallRules": {
+                            "description": "The list of firewall rules associated with this Data Lake Store account.",
+                            "items": {
+                                "description": "The parameters used to create a new firewall rule while creating a new Data Lake Store account.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The unique name of the firewall rule to create.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "description": "The firewall rule properties to use when creating a new firewall rule.",
+                                        "x-ms-client-flatten": true,
+                                        "properties": {
+                                            "endIpAddress": {
+                                                "description": "The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start and End should be in the same protocol.",
+                                                "type": "string"
+                                            },
+                                            "startIpAddress": {
+                                                "description": "The start IP address for the firewall rule. This can be either ipv4 or ipv6. Start and End should be in the same protocol.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "startIpAddress",
+                                            "endIpAddress"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "properties"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "firewallState": {
+                            "description": "The current state of the IP address firewall for this Data Lake Store account.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "FirewallState"
+                            }
+                        },
+                        "newTier": {
+                            "description": "The commitment tier to use for next month.",
+                            "enum": [
+                                "Consumption",
+                                "Commitment_1TB",
+                                "Commitment_10TB",
+                                "Commitment_100TB",
+                                "Commitment_500TB",
+                                "Commitment_1PB",
+                                "Commitment_5PB"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "TierType"
+                            }
+                        },
+                        "trustedIdProviderState": {
+                            "description": "The current state of the trusted identity provider feature for this Data Lake Store account.",
+                            "enum": [
+                                "Enabled",
+                                "Disabled"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": false,
+                                "name": "TrustedIdProviderState"
+                            }
+                        },
+                        "trustedIdProviders": {
+                            "description": "The list of trusted identity providers associated with this Data Lake Store account.",
+                            "items": {
+                                "description": "The parameters used to create a new trusted identity provider while creating a new Data Lake Store account.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The unique name of the trusted identity provider to create.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "description": "The trusted identity provider properties to use when creating a new trusted identity provider.",
+                                        "x-ms-client-flatten": true,
+                                        "properties": {
+                                            "idProvider": {
+                                                "description": "The URL of this trusted identity provider.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "idProvider"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "properties"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "virtualNetworkRules": {
+                            "description": "The list of virtual network rules associated with this Data Lake Store account.",
+                            "items": {
+                                "description": "The parameters used to create a new virtual network rule while creating a new Data Lake Store account.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The unique name of the virtual network rule to create.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "description": "The virtual network rule properties to use when creating a new virtual network rule.",
+                                        "x-ms-client-flatten": true,
+                                        "properties": {
+                                            "subnetId": {
+                                                "description": "The resource identifier for the subnet.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "subnetId"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "properties"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    }
+                },
+                "tags": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "The resource tags.",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "location"
+            ],
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

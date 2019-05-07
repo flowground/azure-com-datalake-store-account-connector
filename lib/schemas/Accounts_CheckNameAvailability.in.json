@@ -1,0 +1,38 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "location": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Data Lake Store account name availability check parameters.",
+            "properties": {
+                "name": {
+                    "description": "The Data Lake Store name to check availability for.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The resource type. Note: This should not be set by the user, as the constant value is Microsoft.DataLakeStore/accounts",
+                    "enum": [
+                        "Microsoft.DataLakeStore/accounts"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "type"
+            ],
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

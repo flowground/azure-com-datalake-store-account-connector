@@ -1,0 +1,47 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "accountName": {
+            "required": true,
+            "type": "string"
+        },
+        "virtualNetworkRuleName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The parameters used to create a new virtual network rule.",
+            "properties": {
+                "properties": {
+                    "description": "The virtual network rule properties to use when creating a new virtual network rule.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "subnetId": {
+                            "description": "The resource identifier for the subnet.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "subnetId"
+                    ]
+                }
+            },
+            "required": [
+                "properties"
+            ],
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
